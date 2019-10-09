@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ImageBackground } from 'react-native'
+import { ImageBackground, StyleSheet } from 'react-native'
 import logo from '~/assets/logo.png'
 import { signInRequest } from '~/store/modules/auth/actions'
 import bg from '~/assets/bg.jpg'
@@ -28,11 +28,12 @@ export default function SignIn({ navigation }) {
     dispatch(signInRequest(email, password))
   }
 
+  const style = StyleSheet.create({
+    background: { width: '100%', height: '100%' }
+  })
+
   return (
-    <ImageBackground
-      blurRadius={6}
-      source={bg}
-      style={{ width: '100%', height: '100%' }}>
+    <ImageBackground blurRadius={6} source={bg} style={style.background}>
       <Container>
         <Logo source={logo} resizeMode={'contain'} />
         <Form>
@@ -63,7 +64,7 @@ export default function SignIn({ navigation }) {
           </SubmitButton>
         </Form>
         <SignInLink onPress={() => navigation.navigate('SignUp')}>
-          <SignInLinkText>SignUp</SignInLinkText>
+          <SignInLinkText>Register, its free!</SignInLinkText>
         </SignInLink>
       </Container>
     </ImageBackground>

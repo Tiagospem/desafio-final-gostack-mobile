@@ -1,17 +1,17 @@
-import React, {useState, useMemo} from 'react';
-import {DatePickerIOS} from 'react-native';
-import {format} from 'date-fns';
-import pt from 'date-fns/locale/pt';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Container, DateText, DateButton, Picker} from './styles';
+import React, { useState, useMemo } from 'react'
+import { DatePickerIOS } from 'react-native'
+import { format } from 'date-fns'
+import pt from 'date-fns/locale/pt'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Container, DateText, DateButton, Picker } from './styles'
 
-export default function DateInput({date, onChange}) {
-  const [opned, setOpned] = useState(false);
+export default function DateInput({ date, onChange }) {
+  const [opned, setOpned] = useState(false)
 
   const dateFormatted = useMemo(
-    () => format(date, "dd 'de' MMMM 'de' yyyy", {locale: pt}),
-    [date],
-  );
+    () => format(date, "dd 'de' MMMM 'de' yyyy", { locale: pt }),
+    [date]
+  )
 
   return (
     <Container>
@@ -32,5 +32,5 @@ export default function DateInput({date, onChange}) {
         </Picker>
       )}
     </Container>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import React, {useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import Background from '~/components/Background';
-import {Image} from 'react-native';
-import logo from '~/assets/logo.png';
-import {signUpRequest} from '~/store/modules/auth/actions';
+import React, { useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ImageBackground, StyleSheet } from 'react-native'
+import logo from '~/assets/logo.png'
+import bg from '~/assets/bg.jpg'
+import { signUpRequest } from '~/store/modules/auth/actions'
 
 import {
   Container,
@@ -12,29 +12,34 @@ import {
   SubmitButton,
   SignInLink,
   SignInLinkText,
-} from './styles';
+  Logo
+} from '~/pages/SignIn/styles'
 
-export default function SignUp({navigation}) {
-  const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const loading = useSelector(state => state.auth.loading);
+export default function SignUp({ navigation }) {
+  const dispatch = useDispatch()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const loading = useSelector(state => state.auth.loading)
   function handleSubmit() {
-    dispatch(signUpRequest(name, email, password));
+    dispatch(signUpRequest(name, email, password))
   }
+
+  const style = StyleSheet.create({
+    background: { width: '100%', height: '100%' }
+  })
   return (
-    <Background>
+    <ImageBackground blurRadius={6} source={bg} style={style.background}>
       <Container>
-        <Image source={logo} />
+        <Logo source={logo} resizeMode={'contain'} />
         <Form>
           <FormInput
             icon="person-outline"
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="Nome Completo"
+            placeholder="Full Name"
             returnKeyType={'next'}
             onSubmitEditing={() => emailRef.current.focus()}
             value={name}
@@ -45,7 +50,7 @@ export default function SignUp({navigation}) {
             keyboardType="email-address"
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="Digite seu e-mail"
+            placeholder="Your e-mail"
             ref={emailRef}
             returnKeyType={'next'}
             onSubmitEditing={() => passwordRef.current.focus()}
@@ -56,19 +61,21 @@ export default function SignUp({navigation}) {
             icon="lock-outline"
             secureTextEntry
             autoCorrect={false}
-            placeholder="Sua senha"
+            placeholder="Your password"
             ref={passwordRef}
             returnKeyType={'send'}
             onSubmitEditing={handleSubmit}
             value={password}
             onChangeText={setPassword}
           />
-          <SubmitButton loading={loading} onPress={handleSubmit}>Registrar</SubmitButton>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
+            SignUp
+          </SubmitButton>
         </Form>
         <SignInLink onPress={() => navigation.navigate('SignIn')}>
-          <SignInLinkText>Já sou cadastrado</SignInLinkText>
+          <SignInLinkText>Already registered?</SignInLinkText>
         </SignInLink>
       </Container>
-    </Background>
-  );
+    </ImageBackground>
+  )
 }

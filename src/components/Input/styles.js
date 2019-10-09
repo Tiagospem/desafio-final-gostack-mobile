@@ -10,7 +10,7 @@ export const Container = styled.View`
 `
 
 export const TextInput = styled.TextInput.attrs({
-  placeholderTextColor: 'rgba(0,0,0,0.3)',
+  placeholderTextColor: 'rgba(0,0,0,0.3)'
 })`
   flex: 1;
   font-size: 15px;

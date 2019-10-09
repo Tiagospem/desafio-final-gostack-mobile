@@ -20,7 +20,7 @@ export default isSigned =>
       {
         Sign: createSwitchNavigator({
           SignIn,
-          SignUp,
+          SignUp
         }),
         App: createBottomTabNavigator(
           {
@@ -30,48 +30,50 @@ export default isSigned =>
                 {
                   SelectProvider,
                   SelectDateTime,
-                  Confirm,
+                  Confirm
                 },
                 {
                   defaultNavigationOptions: {
                     headerTransparent: true,
                     headerTintColor: '#FFF',
                     headerLeftContainerStyle: {
-                      marginLeft: 20,
-                    },
-                  },
-                },
+                      marginLeft: 20
+                    }
+                  }
+                }
               ),
               navigationOptions: {
                 tabBarVisible: false,
-                tabBarLabel: 'Agendar',
+                tabBarLabel: 'Subscriptions',
                 tabBarIcon: (
                   <Icon
-                    name={'add-circle-outline'}
-                    color={'rgba(255, 255, 255, 0.6)'}
+                    name={'event'}
+                    color={'rgba(51, 51, 51, 0.6)'}
                     size={20}
                   />
-                ),
-              },
+                )
+              }
             },
-            Profile,
+            Profile
           },
           {
             resetOnBlur: true,
             tabBarOptions: {
+              activeBackgroundColor: 'rgba(51, 51, 51, 0.1)',
               keyboardHidesTabBar: true,
-              activeTintColor: '#fff',
-              inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
+              activeTintColor: '#515151',
+              inactiveTintColor: 'rgba(51, 51, 51, 0.6)',
               style: {
-                backgroundColor: '#087480',
-                borderTopWidth: 0,
-              },
-            },
-          },
-        ),
+                backgroundColor: '#fff',
+                borderTopWidth: 1,
+                borderTopColor: 'rgba(51, 51, 51, 0.1)'
+              }
+            }
+          }
+        )
       },
       {
-        initialRouteName: isSigned ? 'App' : '',
-      },
-    ),
+        initialRouteName: isSigned ? 'App' : ''
+      }
+    )
   )

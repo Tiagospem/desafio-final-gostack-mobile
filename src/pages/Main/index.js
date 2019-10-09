@@ -1,63 +1,64 @@
-import React, {useEffect, useState} from 'react';
-import {withNavigationFocus} from 'react-navigation';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Background from '~/components/Background';
-import api from '~/services/api';
-import Appointment from '~/components/Appointment';
-import {Container, Title, List} from './styles';
+import React, { useEffect, useState } from 'react'
+import { withNavigationFocus } from 'react-navigation'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import api from '~/services/api'
+import Card from '~/components/Card'
+import { Container, Background, List } from './styles'
+import CustomHeader from '~/components/CustomHeader'
 
-function Main({isFocused}) {
-  const [appointments, setAppointments] = useState([]);
+function Main({ isFocused }) {
+  const [meetups, setMeetups] = useState([])
 
-  async function loadAppointments() {
-    const response = await api.get('appointments');
-    setAppointments(response.data);
+  async function loadMeetups() {
+    const response = await api.get('meetups')
+    setMeetups(response.data)
   }
-
-  /*useEffect(() => {
-    loadAppointments();
-  }, []);*/
 
   useEffect(() => {
     if (isFocused) {
-      loadAppointments();
+      loadMeetups()
     }
-  }, [isFocused]);
+  }, [isFocused])
 
+  /**
   async function handleCancel(id) {
-    const response = await api.delete(`appointments/${id}`);
+    const response = await api.delete(`appointments/${id}`)
     setAppointments(
       appointments.map(appointment =>
         appointment.id === id
           ? {
               ...appointment,
-              canceled_at: response.data.canceled_at,
+              canceled_at: response.data.canceled_at
             }
-          : appointment,
-      ),
-    );
+          : appointment
+      )
+    )
   }
+  */
 
   return (
     <Background>
       <Container>
-        <Title>Agendamentos</Title>
+        <CustomHeader
+          leftComponent={{ icon: 'menu', color: '#333' }}
+          centerComponent={{ text: 'MY TITLE', style: { color: '#333' } }}
+          rightComponent={{ icon: 'home', color: '#333' }}
+          placement="center"
+        />
         <List
-          data={appointments}
+          data={meetups}
           keyExtractor={item => String(item.id)}
-          renderItem={({item}) => (
-            <Appointment onCancel={() => handleCancel(item.id)} data={item} />
-          )}
+          renderItem={({ item }) => <Card data={item} />}
         />
       </Container>
     </Background>
-  );
+  )
 }
 
 Main.navigationOptions = {
-  tabBarLabel: 'Agendamentos',
-  tabBarIcon: ({tintColor}) => (
-    <Icon name={'event'} color={tintColor} size={20} />
-  ),
-};
-export default withNavigationFocus(Main);
+  tabBarLabel: 'Meetups',
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name={'list'} color={tintColor} size={20} />
+  )
+}
+export default withNavigationFocus(Main)

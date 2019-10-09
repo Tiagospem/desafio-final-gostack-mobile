@@ -12,7 +12,7 @@ if (__DEV__) {
     .use(reactotronRedux())
     .use(reactotronSaga())
     .connect({
-      host: '198.168.100.34',
+      host: '198.168.100.34'
     })
 
   tron.clear()
