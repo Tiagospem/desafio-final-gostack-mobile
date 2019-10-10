@@ -47,7 +47,7 @@ export default isSigned =>
                 tabBarLabel: 'Subscriptions',
                 tabBarIcon: (
                   <Icon
-                    name={'event'}
+                    name={'label'}
                     color={'rgba(51, 51, 51, 0.6)'}
                     size={20}
                   />

@@ -17,7 +17,11 @@ import App from './App'
 const Index = () => (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <StatusBar translucent />
+      <StatusBar
+        translucent
+        barStyle={'dark-content'}
+        backgroundColor={'transparent'}
+      />
       <App />
     </PersistGate>
   </Provider>

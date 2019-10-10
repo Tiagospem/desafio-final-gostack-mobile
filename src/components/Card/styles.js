@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
+import { RectButton } from 'react-native-gesture-handler'
 
-export const Container = styled.View`
+export const Container = styled(RectButton)`
   opacity: ${props => (props.past ? 0.6 : 1)};
   margin-bottom: 15px;
   border-radius: 6px;
@@ -24,12 +25,22 @@ export const Banner = styled.Image`
 export const Info = styled.View`
   padding: 20px;
 `
-export const Name = styled.Text`
+export const Title = styled.Text`
   font-weight: bold;
   font-size: 14px;
   color: #333;
 `
+export const Location = styled.Text`
+  color: #999;
+  font-size: 13px;
+  margin-top: 4px;
+`
 export const Time = styled.Text`
+  color: #999;
+  font-size: 13px;
+  margin-top: 4px;
+`
+export const Organizer = styled.Text`
   color: #999;
   font-size: 13px;
   margin-top: 4px;

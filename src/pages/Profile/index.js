@@ -1,5 +1,5 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useRef, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Container,
   Title,
@@ -7,35 +7,35 @@ import {
   Separator,
   FormInput,
   Form,
-  LogoutButton,
-} from './styles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Background from '~/components/Background';
+  LogoutButton
+} from './styles'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import Background from '~/components/Background'
 
-import {updateProfileRequest} from '~/store/modules/user/actions';
-import {signOut} from '~/store/modules/auth/actions';
+import { updateProfileRequest } from '~/store/modules/user/actions'
+import { signOut } from '~/store/modules/auth/actions'
 
 export default function Profile() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const profile = useSelector(state => state.user.profile);
+  const profile = useSelector(state => state.user.profile)
 
-  const emailRef = useRef();
-  const oldPasswordRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
+  const emailRef = useRef()
+  const oldPasswordRef = useRef()
+  const passwordRef = useRef()
+  const confirmPasswordRef = useRef()
 
-  const [name, setName] = useState(profile.name);
-  const [email, setEmail] = useState(profile.email);
-  const [oldPassword, setOldPassword] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState(profile.name)
+  const [email, setEmail] = useState(profile.email)
+  const [oldPassword, setOldPassword] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   useEffect(() => {
-    setOldPassword('');
-    setPassword('');
-    setConfirmPassword('');
-  }, [profile]);
+    setOldPassword('')
+    setPassword('')
+    setConfirmPassword('')
+  }, [profile])
 
   async function handleSubmit() {
     dispatch(
@@ -44,13 +44,13 @@ export default function Profile() {
         email,
         oldPassword,
         password,
-        confirmPassword,
-      }),
-    );
+        confirmPassword
+      })
+    )
   }
 
   function handleLogout() {
-    dispatch(signOut());
+    dispatch(signOut())
   }
 
   return (
@@ -119,12 +119,12 @@ export default function Profile() {
         </Form>
       </Container>
     </Background>
-  );
+  )
 }
 
 Profile.navigationOptions = {
   tabBarLabel: 'Profile',
-  tabBarIcon: ({tintColor}) => (
+  tabBarIcon: ({ tintColor }) => (
     <Icon name={'person'} color={tintColor} size={20} />
-  ),
-};
+  )
+}

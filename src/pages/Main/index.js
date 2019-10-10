@@ -1,55 +1,93 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { withNavigationFocus } from 'react-navigation'
+import { ActivityIndicator } from 'react-native'
+
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+
 import api from '~/services/api'
 import Card from '~/components/Card'
-import { Container, Background, List } from './styles'
+import { Container, Background, List, NoMeetups, Message } from './styles'
 import CustomHeader from '~/components/CustomHeader'
+import CalendarModal from '~/components/CalendarModal'
+import Logout from '~/components/LogoutHeaderButton'
+import FilterLabel from '~/components/FilterLabel'
 
 function Main({ isFocused }) {
   const [meetups, setMeetups] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
+  const [totalPages, setTotalPages] = useState(0)
+  const [page, setPage] = useState(1)
 
-  async function loadMeetups() {
-    const response = await api.get('meetups')
-    setMeetups(response.data)
+  const filter_date = useSelector(state => state.main.date)
+
+  async function loadMeetups(pg, refresh = false) {
+    setRefreshing(refresh)
+    const response = await api.get('meetups', {
+      params: { limit: 4, page: pg, filter_date }
+    })
+    setLoading(false)
+    setRefreshing(false)
+    setMeetups(
+      !refresh
+        ? [...meetups, ...response.data.meetups]
+        : [...response.data.meetups]
+    )
+    setTotalPages(response.data.pages)
+    setPage(pg)
+  }
+
+  function renderFooter() {
+    if (!loading) {
+      return null
+    }
+    return <ActivityIndicator size={30} color="#7159c1" />
+  }
+
+  async function loadMore() {
+    if (page < totalPages) {
+      setLoading(true)
+      loadMeetups(page + 1, false)
+    }
   }
 
   useEffect(() => {
-    if (isFocused) {
-      loadMeetups()
+    if (isFocused || filter_date) {
+      loadMeetups(1, true)
     }
-  }, [isFocused])
-
-  /**
-  async function handleCancel(id) {
-    const response = await api.delete(`appointments/${id}`)
-    setAppointments(
-      appointments.map(appointment =>
-        appointment.id === id
-          ? {
-              ...appointment,
-              canceled_at: response.data.canceled_at
-            }
-          : appointment
-      )
-    )
-  }
-  */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused, filter_date])
 
   return (
     <Background>
       <Container>
         <CustomHeader
-          leftComponent={{ icon: 'menu', color: '#333' }}
-          centerComponent={{ text: 'MY TITLE', style: { color: '#333' } }}
-          rightComponent={{ icon: 'home', color: '#333' }}
+          leftComponent={<CalendarModal />}
+          rightComponent={<Logout />}
           placement="center"
         />
-        <List
-          data={meetups}
-          keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => <Card data={item} />}
-        />
+        {filter_date && <FilterLabel />}
+        {meetups.length > 0 ? (
+          <List
+            bounces={false}
+            data={meetups}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) => <Card data={item} />}
+            refreshing={refreshing}
+            onRefresh={() => loadMeetups(1, true)}
+            onEndReachedThreshold={0.1}
+            onEndReached={() => loadMore()}
+            ListFooterComponent={renderFooter()}
+          />
+        ) : (
+          <NoMeetups>
+            <Message>
+              <FontAwesome5 name="calendar-times" /> No meetus found at date.
+            </Message>
+          </NoMeetups>
+        )}
       </Container>
     </Background>
   )

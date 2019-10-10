@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
 import { Header } from 'react-native-elements'
+import Logo from './Logo'
 
 // import { Container } from './styles';
 
@@ -21,6 +21,7 @@ export default function CustomHeader({ ...rest }) {
   return (
     <Header
       statusBarProps={statusBar}
+      centerComponent={<Logo />}
       placement="left"
       {...rest}
       containerStyle={containerStyle}

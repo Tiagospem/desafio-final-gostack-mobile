@@ -1,15 +1,21 @@
 import React, { useMemo } from 'react'
-import { parseISO, formatRelative } from 'date-fns'
-import pt from 'date-fns/locale/pt'
-import { Container, Content, Banner, Info, Name, Time } from './styles'
+import { parseISO, format } from 'date-fns'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import {
+  Container,
+  Content,
+  Banner,
+  Info,
+  Title,
+  Time,
+  Location,
+  Organizer
+} from './styles'
 import { StyleSheet } from 'react-native'
 
 export default function Card({ data, onCancel }) {
   const dateParsed = useMemo(() => {
-    return formatRelative(parseISO(data.date), new Date(), {
-      locale: pt,
-      addSuffix: true
-    })
+    return format(parseISO(data.date), 'MMM d, YYY - HH:mm')
   }, [data.date])
 
   const styles = StyleSheet.create({
@@ -23,8 +29,18 @@ export default function Card({ data, onCancel }) {
       <Content>
         <Banner source={{ uri: data.banner.url }} />
         <Info>
-          <Name>{data.title}</Name>
-          <Time>{dateParsed}</Time>
+          <Title>
+            {data.id} {data.title}
+          </Title>
+          <Time>
+            <FontAwesome5 name={'calendar-alt'} /> {dateParsed}hs
+          </Time>
+          <Location>
+            <FontAwesome5 name={'map-marked-alt'} /> {data.location}
+          </Location>
+          <Organizer>
+            <FontAwesome5 name={'user-cog'} /> Organizer: {data.organizer.name}
+          </Organizer>
         </Info>
       </Content>
     </Container>
