@@ -7,13 +7,10 @@ import {
   Separator,
   FormInput,
   Form,
-  LogoutButton
+  Background
 } from './styles'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import Background from '~/components/Background'
-
 import { updateProfileRequest } from '~/store/modules/user/actions'
-import { signOut } from '~/store/modules/auth/actions'
 
 export default function Profile() {
   const dispatch = useDispatch()
@@ -49,20 +46,16 @@ export default function Profile() {
     )
   }
 
-  function handleLogout() {
-    dispatch(signOut())
-  }
-
   return (
     <Background>
       <Container>
-        <Title>Meu perfil</Title>
+        <Title>Profile</Title>
         <Form>
           <FormInput
             icon="person-outline"
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="Nome Completo"
+            placeholder="Full Name"
             returnKeyType={'next'}
             onSubmitEditing={() => emailRef.current.focus()}
             value={name}
@@ -73,7 +66,7 @@ export default function Profile() {
             keyboardType="email-address"
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="Digite seu e-mail"
+            placeholder="Your e-mail"
             ref={emailRef}
             returnKeyType={'next'}
             onSubmitEditing={() => oldPasswordRef.current.focus()}
@@ -85,7 +78,7 @@ export default function Profile() {
             icon="lock-outline"
             secureTextEntry
             autoCorrect={false}
-            placeholder="Sua senha atual"
+            placeholder="Your current password"
             ref={oldPasswordRef}
             returnKeyType={'next'}
             onSubmitEditing={() => passwordRef.current.focus()}
@@ -96,7 +89,7 @@ export default function Profile() {
             icon="lock-outline"
             secureTextEntry
             autoCorrect={false}
-            placeholder="Sua nova senha"
+            placeholder="Insert new password"
             ref={passwordRef}
             returnKeyType={'next'}
             onSubmitEditing={() => confirmPasswordRef.current.focus()}
@@ -107,15 +100,14 @@ export default function Profile() {
             icon="lock-outline"
             secureTextEntry
             autoCorrect={false}
-            placeholder="Confirme sua senha"
+            placeholder="Confirm new password"
             ref={confirmPasswordRef}
             returnKeyType={'send'}
             onSubmitEditing={handleSubmit}
             value={confirmPassword}
             onChangeText={setConfirmPassword}
           />
-          <SubmitButton onPress={handleSubmit}>Atualizar Perfil</SubmitButton>
-          <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
+          <SubmitButton onPress={handleSubmit}>Update</SubmitButton>
         </Form>
       </Container>
     </Background>

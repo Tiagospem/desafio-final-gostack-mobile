@@ -84,7 +84,7 @@ function Main({ isFocused }) {
         ) : (
           <NoMeetups>
             <Message>
-              <FontAwesome5 name="calendar-times" /> No meetus found at date.
+              <FontAwesome5 name="calendar-times" /> No meetups found.
             </Message>
           </NoMeetups>
         )}
