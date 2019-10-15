@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 // import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import Main from '~/pages/Main'
+import Subscriptions from '~/pages/Subscriptions'
 import Profile from '~/pages/Profile'
 import SignIn from '~/pages/SignIn'
 import SignUp from '~/pages/SignUp'
@@ -50,6 +51,7 @@ export default isSigned =>
                 )
               }
             }, */,
+            Subscriptions,
             Profile
           },
           {

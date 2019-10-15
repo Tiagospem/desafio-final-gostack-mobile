@@ -49,7 +49,7 @@ export const Organizer = styled.Text`
   margin-top: 4px;
 `
 
-export const SubscribeButton = styled(RectButton)`
+export const UnSubscribeButton = styled(RectButton)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,6 +59,6 @@ export const SubscribeButton = styled(RectButton)`
   right: 0;
   margin-right: 10px;
   top: 105px;
-  background: ${props => (props.subscribed ? '#4db371' : '#7159c1')};
+  background: #eb236e;
   border-radius: 25px;
 `

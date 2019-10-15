@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Container,
-  Title,
   SubmitButton,
   Separator,
   FormInput,
@@ -10,7 +9,9 @@ import {
   Background
 } from './styles'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import CustomHeader from '~/components/CustomHeader'
 import { updateProfileRequest } from '~/store/modules/user/actions'
+import Logout from '~/components/LogoutHeaderButton'
 
 export default function Profile() {
   const dispatch = useDispatch()
@@ -49,7 +50,7 @@ export default function Profile() {
   return (
     <Background>
       <Container>
-        <Title>Profile</Title>
+        <CustomHeader rightComponent={<Logout />} placement="center" />
         <Form>
           <FormInput
             icon="person-outline"
