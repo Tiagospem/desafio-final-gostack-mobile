@@ -4,5 +4,6 @@ module.exports = {
   rules: {
     "semi": ["error", "never"],
     "comma-dangle": ["error", "never"],
+    "react-hooks/exhaustive-deps": "off"
   }
 };

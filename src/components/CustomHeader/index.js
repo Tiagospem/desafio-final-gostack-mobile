@@ -2,8 +2,6 @@ import React from 'react'
 import { Header } from 'react-native-elements'
 import Logo from './Logo'
 
-// import { Container } from './styles';
-
 export default function CustomHeader({ ...rest }) {
   const statusBar = {
     barStyle: 'dark-content',

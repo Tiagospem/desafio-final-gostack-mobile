@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { withNavigationFocus } from 'react-navigation'
 import { ActivityIndicator } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -14,7 +13,7 @@ import CalendarModal from '~/components/CalendarModal'
 import Logout from '~/components/LogoutHeaderButton'
 import FilterLabel from '~/components/FilterLabel'
 
-function Main({ isFocused }) {
+function Main({ isFocused, navigation }) {
   const [meetups, setMeetups] = useState([])
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -54,11 +53,12 @@ function Main({ isFocused }) {
   }
 
   useEffect(() => {
-    if (isFocused || filter_date) {
-      loadMeetups(1, true)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused, filter_date])
+    loadMeetups(1, true)
+  }, [])
+
+  useEffect(() => {
+    loadMeetups(1, true)
+  }, [filter_date])
 
   return (
     <Background>
@@ -74,7 +74,9 @@ function Main({ isFocused }) {
             bounces={false}
             data={meetups}
             keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => <Card data={item} />}
+            renderItem={({ item }) => (
+              <Card data={item} navigation={navigation} />
+            )}
             refreshing={refreshing}
             onRefresh={() => loadMeetups(1, true)}
             onEndReachedThreshold={0.1}
@@ -99,4 +101,4 @@ Main.navigationOptions = {
     <Icon name={'list'} color={tintColor} size={20} />
   )
 }
-export default withNavigationFocus(Main)
+export default Main

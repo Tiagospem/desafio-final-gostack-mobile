@@ -6,8 +6,6 @@ import DateTimePicker from 'react-native-modal-datetime-picker'
 
 import { setDate } from '~/store/modules/main/actions'
 
-// import { Container } from './styles'
-
 // https://www.npmjs.com/package/react-native-modal-datetime-picker
 
 export default function CalendarModal() {

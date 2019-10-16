@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { withNavigationFocus } from 'react-navigation'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -12,7 +12,7 @@ import CustomHeader from '~/components/CustomHeader'
 import Logout from '~/components/LogoutHeaderButton'
 import { setSubscriptions } from '~/store/modules/subscription/actions'
 
-function Subscriptions({ isFocused }) {
+function Subscriptions({ isFocused, navigation }) {
   const dispatch = useDispatch()
   const subscriptions = useSelector(state => state.subscription.subscriptions)
 
@@ -33,7 +33,9 @@ function Subscriptions({ isFocused }) {
             bounces={false}
             data={subscriptions}
             keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => <Card2 data={item} />}
+            renderItem={({ item }) => (
+              <Card2 data={item} navigation={navigation} />
+            )}
           />
         ) : (
           <NoMeetups>

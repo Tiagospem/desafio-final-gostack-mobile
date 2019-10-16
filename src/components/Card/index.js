@@ -16,7 +16,7 @@ import {
 import { StyleSheet, Alert } from 'react-native'
 import api from '~/services/api'
 
-export default function Card({ data }) {
+export default function Card({ data, navigation }) {
   const [meetup, setMeetup] = useState(data)
 
   useEffect(() => {
@@ -100,9 +100,11 @@ export default function Card({ data }) {
       </SubscribeButton>
     )
   }
-
   return (
-    <Container style={styles.shadow} past={meetup.past_meetup}>
+    <Container
+      style={styles.shadow}
+      past={meetup.past_meetup}
+      onPress={() => navigation.navigate('Subscription', { meetup })}>
       <Content>
         <Banner source={{ uri: meetup.banner.url }} />
         {!meetup.past_meetup && renderSubscribeButton()}

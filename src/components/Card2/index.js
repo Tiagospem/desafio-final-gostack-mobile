@@ -19,7 +19,7 @@ import { StyleSheet, Alert } from 'react-native'
 
 import api from '~/services/api'
 
-export default function Card2({ data }) {
+export default function Card2({ data, navigation }) {
   const dispatch = useDispatch()
 
   const dateParsed = useMemo(() => {
@@ -75,7 +75,12 @@ export default function Card2({ data }) {
   }
 
   return (
-    <Container style={styles.shadow} past={data.meetup.past_meetup}>
+    <Container
+      style={styles.shadow}
+      past={data.meetup.past_meetup}
+      onPress={() =>
+        navigation.navigate('Subscription', { meetup: data.meetup })
+      }>
       <Content>
         <Banner source={{ uri: data.meetup.banner.url }} />
         {!data.meetup.past_meetup && renderSubscribeButton()}
